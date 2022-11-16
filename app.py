@@ -2,7 +2,6 @@ import os
 
 from flask import Flask, request, Response
 from flask_restful import Resource, Api
-from flask_session import Session
 from src.busca_dados_cadastrais import BuscaDadosCadastrais
 from src.lib.cors import build_cors_response
 
@@ -15,7 +14,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = 'filesystem'
 
 api = Api(app)
-Session(app)
 
 class PHAuth(Resource):
 
@@ -24,7 +22,7 @@ class PHAuth(Resource):
         
         token: str = request.headers.get('Access-Token')
         worker: BuscaDadosCadastrais = BuscaDadosCadastrais()
-        
+
         if request.method == "GET":            
             return worker.buscar_cadastro_complementar(token)
         elif request.method == "POST":            
