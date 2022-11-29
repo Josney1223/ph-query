@@ -56,7 +56,7 @@ class PHAuth(Resource):
 
         worker: SistemaArquivos = SistemaArquivos()
 
-        return worker.fazer_request(request)
+        return worker.listar_arquivos(request)
 
 
     @app.after_request
