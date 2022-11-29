@@ -6,11 +6,7 @@ from src.classes.busca_dados import BuscaDados
 
 class BuscaDadosCadastrais(BuscaDados):
     def __init__(self) -> None:
-        super().__init__()
-
-    def _buscar_cpf_cadastro(self, id: int) -> int:
-        # Utilizado para buscar arquivos
-        return self._run_query("CALL BuscaCPF({});".format(id)).values.tolist()[0][0]
+        super().__init__()    
 
     def buscar_cadastro_complementar(self, token: str) -> Response:
         # Busca id

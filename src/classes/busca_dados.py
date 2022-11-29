@@ -13,7 +13,7 @@ class BuscaDados:
         self.website_auth: str = "https://projetohorizonte.materacapital.com.br/api/v1/Auth/ValidateToken"
         self.db_access: tuple[str] = ("10.147.17.25", "admin_projeto_horizonte", "PROJETO TI@TCC2022") 
         self.db_engine: engine.Engine = create_engine('mysql+pymysql://admin_projeto_horizonte:PROJETO%20TI%40TCC2022@10.147.17.25:3306/ProjetoHorizonte')
-    
+
     def _validar_token(self, token: str) -> Response:
         return get(self.website_auth, headers={"Access-Token": token})    
 

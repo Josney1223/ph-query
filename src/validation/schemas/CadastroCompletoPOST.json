@@ -1,0 +1,9 @@
+{
+    "type" : "object",
+    "required": [ "segmentacao", "faturamento", "grupo_economico" ],
+    "properties" : {
+        "segmentacao" : {"type" : "number"},
+        "faturamento" : {"type" : "number"},
+        "grupo_economico": {"type" : "number"}
+    }
+}
