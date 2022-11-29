@@ -5,7 +5,7 @@ from src.classes.busca_dados import BuscaDados
 
 class SistemaArquivos(BuscaDados):
     def __init__(self) -> None:
-        self.url: str = "http://192.168.0.33:40000/api/v1/FileSystem"
+        self.url: str = "http://192.168.66.102:40003/api/v1/FileSystem"
         BuscaDados.__init__(self)
 
     def _buscar_cpf_cadastro(self, id: int) -> int:
