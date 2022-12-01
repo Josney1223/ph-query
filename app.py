@@ -1,5 +1,6 @@
 import os
 
+from json import dumps
 from requests import request as rq
 from flask import Flask, request, Response
 from flask_restful import Resource, Api
@@ -34,7 +35,7 @@ class PHAuth(Resource):
             schema: str = "CadastroCompletoPOST"
 
             # validar json
-            if not validator(body, schema): return Response(get_json_schema(schema), 400)
+            if not validator(body, schema): return Response(dumps(get_json_schema(schema)), 400)
 
             return worker.atualizar_cadastro_complementar(token, body)
     
