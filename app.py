@@ -67,7 +67,7 @@ class PHAuth(Resource):
         token: str = request.headers.get('Access-Token')
         worker: BuscaDadosCadastrais = BuscaDadosCadastrais()
 
-        return worker.buscar_cadastro_complementar(token)
+        return worker.buscar_assessores(token)
 
     @app.after_request
     def AfterRequest(response: Response):
