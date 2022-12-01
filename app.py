@@ -58,6 +58,16 @@ class PHAuth(Resource):
 
         return worker.listar_arquivos(request)
 
+    @app.route('/api/v1/Query/ListAAI', methods=["GET"])
+    def list_aai(*self): 
+
+        # validar token
+        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')
+
+        token: str = request.headers.get('Access-Token')
+        worker: BuscaDadosCadastrais = BuscaDadosCadastrais()
+
+        return worker.buscar_cadastro_complementar(token)
 
     @app.after_request
     def AfterRequest(response: Response):

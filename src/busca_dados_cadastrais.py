@@ -31,3 +31,15 @@ class BuscaDadosCadastrais(BuscaDados):
         self._run_query("CALL ProjetoHorizonte.CadastrarAtualizarCadastroComplementar(%s, %s, %s, %s, %s);", params=params, has_return=False)
 
         return Response("Updated", 202, mimetype="text/plain")
+
+    def buscar_assessores(self, token: str) -> Response:
+        # Validar Token
+        resp_token: Response = self._validar_token(token)        
+        if resp_token.status_code != 200: return Response(resp_token.content, resp_token.status_code)        
+
+        # Busca Assessores
+        return_df: pd.DataFrame = self._run_query("CALL BuscaAssessores();")
+
+        if return_df.empty: return Response("", 204, mimetype="text/plain")
+
+        return Response(dumps(return_df.to_dict("records")[0]), 200, mimetype="application/json")
