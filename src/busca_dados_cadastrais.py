@@ -27,7 +27,7 @@ class BuscaDadosCadastrais(BuscaDados):
         if resp_token.status_code != 200: return Response(resp_token.content, resp_token.status_code)
         id_user: int = resp_token.json()["id_user"]
 
-        params: tuple = (id_user, request_json["segmentacao"], request_json["faturamento"], request_json["grupo_economico"])
-        self._run_query("CALL ProjetoHorizonte.CadastrarAtualizarCadastroComplementar(%s, %s, %s, %s);", params=params, has_return=False)
+        params: tuple = (id_user, request_json["segmentacao"], request_json["faturamento"], request_json["grupo_economico"], request_json["assessor"])
+        self._run_query("CALL ProjetoHorizonte.CadastrarAtualizarCadastroComplementar(%s, %s, %s, %s, %s);", params=params, has_return=False)
 
         return Response("Updated", 202, mimetype="text/plain")
