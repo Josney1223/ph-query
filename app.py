@@ -4,10 +4,13 @@ from json import dumps
 from requests import request as rq
 from flask import Flask, request, Response
 from flask_restful import Resource, Api
-from src.busca_dados_cadastrais import BuscaDadosCadastrais
-from src.sistema_arquivos import SistemaArquivos
+
 from src.lib.cors import build_cors_response
 from src.validation.validate_json import validator, get_json_schema
+
+from src.scripts.busca_dados_cadastrais import BuscaDadosCadastrais
+from src.scripts.sistema_arquivos import SistemaArquivos
+from src.scripts.analise import AnaliseCredito
 
 UPLOAD_FOLDER = os.getcwd()
 
@@ -59,8 +62,8 @@ class PHAuth(Resource):
 
         return worker.listar_arquivos(request)
 
-    @app.route('/api/v1/Query/ListAAI', methods=["GET"])
-    def list_aai(*self): 
+    @app.route('/api/v1/Query/List/Assessor', methods=["GET"])
+    def list_client(*self): 
 
         # validar token
         if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')
@@ -69,6 +72,20 @@ class PHAuth(Resource):
         worker: BuscaDadosCadastrais = BuscaDadosCadastrais()
 
         return worker.buscar_assessores(token)
+
+    @app.route("/api/v1/Query/Analise", methods=["GET", "POST", "PUT"])
+    def analise_credito(*self):
+        
+        # validar token
+        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')
+
+        if request.method == 'GET':
+            pass
+        elif request.method == 'POST':
+            worker: AnaliseCredito = AnaliseCredito()
+            return worker.create_analise_credito(request)
+        elif request.method == 'PUT':
+            pass                    
 
     @app.after_request
     def AfterRequest(response: Response):

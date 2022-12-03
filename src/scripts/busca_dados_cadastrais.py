@@ -40,6 +40,8 @@ class BuscaDadosCadastrais(BuscaDados):
         # Busca Assessores
         return_df: pd.DataFrame = self._run_query("CALL BuscaAssessores();")
 
+        new_list: list = [x[0] for x in return_df.values.tolist()]
+
         if return_df.empty: return Response("", 204, mimetype="text/plain")
 
-        return Response(dumps(return_df.values.tolist()), 200, mimetype="application/json")
+        return Response(dumps(new_list), 200, mimetype="application/json")
