@@ -27,7 +27,7 @@ class SistemaArquivos(BuscaDados):
 
         resp: requests.Response = requests.request(request.method, self.url, params=args, data=request.data)
 
-        return Response(resp.content, resp.status_code, headers=resp.headers)
+        return Response(resp.content, resp.status_code, headers={"Contenta-Type": "application/octet-stream"})
 
     def listar_arquivos(self, request: Request) -> Response:
         # Busca id
