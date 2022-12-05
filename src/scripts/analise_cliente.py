@@ -11,7 +11,7 @@ class AnaliseCliente(BuscaDados):
         if resp_token.status_code != 200: return Response(resp_token.content, resp_token.status_code)
     
         # Query
-        return_df: pd.DataFrame = self._run_query("CALL AnaliseCreditoPorAAI({});".format(id_user))
+        return_df: pd.DataFrame = self._run_query("CALL AnaliseCreditoPorCliente({});".format(id_user))
 
         if return_df.empty: return Response("", 204, mimetype="text/plain")
 
