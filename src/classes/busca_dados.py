@@ -14,7 +14,7 @@ class BuscaDados:
     def _validar_token(self, token: str) -> Response:
         return get(self.website_auth, headers={"Access-Token": token})    
 
-    def _run_query(self, query: str, params: tuple = (), has_return: bool = True) -> Union[pd.DataFrame, None]:
+    def _run_query(self, query: str, has_return: bool = True) -> Union[pd.DataFrame, None]:
         
         if has_return:
             try:   
@@ -24,7 +24,7 @@ class BuscaDados:
                 raise Exception("Falha ao se conectar com o banco de dados.", e.args)        
         else:
             with self.db_engine.connect() as con:
-                con.execute(query, params)        
+                con.execute(query)        
                 con.connection.commit()
 
         return None

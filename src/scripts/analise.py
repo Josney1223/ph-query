@@ -14,18 +14,17 @@ class AnaliseCredito(BuscaDados):
         if resp_token.status_code != 200: return Response(resp_token.content, resp_token.status_code)
         id_user: int = resp_token.json()["id_user"]
 
-        query: str = "CALL ProjetoHorizonte.NovaAnalise(%s, %s, %s, '%s');"
-
         json: dict = request.get_json()
 
-        params: tuple = (id_user,
+        query: str = "CALL ProjetoHorizonte.NovaAnalise({}, {}, {}, '{}');".format(id_user, 
                         json.get('valor_credito'),
                         json.get('periodo_divida'),
                         json.get('produto'))
-                                
+        
         try:
-            self._run_query(query, params=params, has_return=False)
+            self._run_query(query, has_return=False)
         except Exception as ex:
+            print(ex.args)
             return Response("Falha em processar o pedido.", 500)
 
         return Response("Sucesso", 202)    
