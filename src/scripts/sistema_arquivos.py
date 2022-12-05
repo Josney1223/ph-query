@@ -22,7 +22,8 @@ class SistemaArquivos(BuscaDados):
 
         args: dict = {
             "CPF": cpf,
-            "FileName": request.args.get("FileName")
+            "FileName": request.args.get("FileName"),
+            "ProjectID": request.args.get("ProjectID")
         }
 
         resp: requests.Response = requests.request(request.method, self.url, params=args, data=request.data)
@@ -38,7 +39,8 @@ class SistemaArquivos(BuscaDados):
         cpf: str = self._buscar_cpf_cadastro(id_user)
 
         args: dict = {
-            "CPF": cpf            
+            "CPF": cpf ,
+            "ProjectID": request.args.get("ProjectID")           
         }
 
         resp: requests.Response = requests.request(request.method, "{}/ListFiles".format(self.url), params=args)
