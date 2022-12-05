@@ -92,12 +92,11 @@ class PHAuth(Resource):
     @app.route("/api/v1/Query/AnalisePorCliente", methods=["GET"])       
     def analise_por_cliente(*self):
         if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')            
-        token: str = request.headers.get('Access-Token')
-        id_user: str = request.headers.get('User-Id')
+        token: str = request.headers.get('Access-Token')        
     
         worker: AnaliseCliente = AnaliseCliente()
 
-        return worker.analise_cliente(token, id_user)
+        return worker.analise_cliente(token)
 
     @app.route("/api/v1/Query/AnalisePorAssessor", methods=["GET"])       
     def analise_por_assessor(*self):
