@@ -91,8 +91,7 @@ class PHAuth(Resource):
 
     @app.route("/api/v1/Query/AnalisePorCliente", methods=["GET"])       
     def analise_por_cliente(*self):
-        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')
-        if 'User-Id' not in request.headers.keys(): return Response("Id não informado", 400, mimetype='text/plain')        
+        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')            
         token: str = request.headers.get('Access-Token')
         id_user: str = request.headers.get('User-Id')
     
