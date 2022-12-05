@@ -11,6 +11,8 @@ from src.validation.validate_json import validator, get_json_schema
 from src.scripts.busca_dados_cadastrais import BuscaDadosCadastrais
 from src.scripts.sistema_arquivos import SistemaArquivos
 from src.scripts.analise import AnaliseCredito
+from src.scripts.analise_cliente import AnaliseCliente
+from src.scripts.analise_credito import AnaliseAssessor
 
 UPLOAD_FOLDER = os.getcwd()
 
@@ -86,6 +88,25 @@ class PHAuth(Resource):
             return worker.create_analise_credito(request)
         elif request.method == 'PUT':
             pass                    
+
+    @app.route("/api/v1/Query/AnalisePorCliente", methods=["GET"])       
+    def analise_por_cliente(*self):
+        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')
+        if 'User-Id' not in request.headers.keys(): return Response("Id não informado", 400, mimetype='text/plain')        
+        token: str = request.headers.get('Access-Token')
+        id_user: str = request.headers.get('User-Id')
+    
+        worker: AnaliseCliente = AnaliseCliente()
+
+        return worker.analise_cliente(token, id_user)
+
+    @app.route("/api/v1/Query/AnalisePorAssessor", methods=["GET"])       
+    def analise_por_assessor(*self):
+        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')       
+        token: str = request.headers.get('Access-Token')
+        worker: AnaliseAssessor = AnaliseAssessor()
+
+        return worker.analise_assessor(token)
 
     @app.after_request
     def AfterRequest(response: Response):
