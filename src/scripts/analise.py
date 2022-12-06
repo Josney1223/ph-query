@@ -35,10 +35,11 @@ class AnaliseCredito(BuscaDados):
 
         json: dict = request.get_json()
 
-        query: str = "CALL ProjetoHorizonte.NovaAnalise({}, {}, {}, '{}');".format(id_user, 
+        query: str = "CALL ProjetoHorizonte.NovaAnalise({}, {}, {}, '{}', {});".format(id_user, 
                         json.get('valor_credito'),
                         json.get('periodo_divida'),
-                        json.get('produto'))
+                        json.get('produto'),
+                        json.get('juros'))
         
         try:
             self._run_query(query, has_return=False)

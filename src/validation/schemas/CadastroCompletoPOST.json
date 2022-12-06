@@ -1,10 +1,11 @@
 {
     "type" : "object",
-    "required": [ "segmentacao", "faturamento", "grupo_economico", "assessor"],
+    "required": [ "segmentacao", "faturamento", "grupo_economico", "assessor", "juros"],
     "properties" : {
         "segmentacao" : {"type" : "number"},
         "faturamento" : {"type" : "number"},
         "grupo_economico": {"type" : "number"},
+        "juros": {"type" : "number"},
         "assessor": {"type": "string"}
     }
 }
