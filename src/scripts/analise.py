@@ -48,3 +48,26 @@ class AnaliseCredito(BuscaDados):
             return Response("Falha em processar o pedido.", 500)
 
         return Response("Sucesso", 202)    
+
+    def atualizar_analise_credito(self, request: Request) -> Response:
+
+        resp_token: Response = self._validar_token(request.headers.get('Access-Token'))        
+        if resp_token.status_code != 200: return Response(resp_token.content, resp_token.status_code)
+        id_user: int = resp_token.json()["id_user"]
+
+        json: dict = request.get_json()
+
+        query: str = "CALL ProjetoHorizonte.AtualizarAnalise({}, {}, {}, {}, '{}', {});".format(id_user, 
+                        json.get('id_analise'),
+                        json.get('valor_credito'),
+                        json.get('periodo_divida'),
+                        json.get('produto'),
+                        json.get('juros'))
+        
+        try:
+            self._run_query(query, has_return=False)
+        except Exception as ex:
+            print(ex.args)
+            return Response("Falha em processar o pedido.", 500)
+
+        return Response("Sucesso", 202) 

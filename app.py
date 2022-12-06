@@ -94,7 +94,7 @@ class PHAuth(Resource):
         elif request.method == 'POST':            
             return worker.create_analise_credito(request)
         elif request.method == 'PUT':
-            pass                    
+            return worker.atualizar_analise_credito(request)                    
 
     @app.route("/api/v1/Query/AnalisePorCliente", methods=["GET"])       
     def analise_por_cliente(*self):

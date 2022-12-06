@@ -1,0 +1,11 @@
+{
+    "type" : "object",
+    "required": [ "id_analise", "valor_credito", "periodo_divida", "produto", "juros"],
+    "properties" : {
+        "id_analise" : {"type" : "number"},
+        "valor_credito" : {"type" : "number"},
+        "periodo_divida": {"type" : "number"},
+        "produto": {"type" : "string"},
+        "juros": {"type": "number"}
+    }
+}

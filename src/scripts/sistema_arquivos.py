@@ -30,11 +30,15 @@ class SistemaArquivos(BuscaDados):
 
         return Response(resp.content, resp.status_code, headers={"Contenta-Type": "application/octet-stream"})
 
-    def listar_arquivos(self, request: Request) -> Response:
-        # Busca id
-        resp_token: Response = self._validar_token(request.headers.get('Access-Token'))        
-        if resp_token.status_code != 200: return Response(resp_token.content, resp_token.status_code)
-        id_user: int = resp_token.json()["id_user"]
+    def listar_arquivos(self, request: Request, aai: bool = False) -> Response:
+        
+        if "UserID" not in request.args.keys():
+            # Busca id
+            resp_token: Response = self._validar_token(request.headers.get('Access-Token'))        
+            if resp_token.status_code != 200: return Response(resp_token.content, resp_token.status_code)
+            id_user: int = resp_token.json()["id_user"]            
+        else:        
+            id_user: int = request.args.get("UserID")
 
         cpf: str = self._buscar_cpf_cadastro(id_user)
 
