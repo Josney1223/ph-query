@@ -22,7 +22,7 @@ def validator(dictionary: dict, validator_type: str) -> bool:
     """
     schema: dict = {}
     
-    if validator_type in ("login", "signin", "reset_pwd", "CadastroCompletoPOST"):
+    if validator_type in ("AnaliseGET", "CadastroCompletoPOST"):
         schema = get_json_schema(validator_type)
     else:
         return False

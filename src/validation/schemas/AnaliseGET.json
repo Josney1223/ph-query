@@ -1,0 +1,8 @@
+{
+    "type" : "object",
+    "required": [ "UserID", "ProjectID"],
+    "properties" : {
+        "UserID" : {"type" : "string"},
+        "ProjectID" : {"type" : "string"}        
+    }
+}

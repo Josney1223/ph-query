@@ -81,10 +81,17 @@ class PHAuth(Resource):
         # validar token
         if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')
 
+        worker: AnaliseCredito = AnaliseCredito()
+
         if request.method == 'GET':
-            pass
-        elif request.method == 'POST':
-            worker: AnaliseCredito = AnaliseCredito()
+            body: dict = request.args     
+            schema: str = "AnaliseGET"
+            # validar json
+            if not validator(body, schema): return Response(dumps(get_json_schema(schema)), 400, mimetype="application/json")
+
+            return worker.busca_analise_credito(request)
+
+        elif request.method == 'POST':            
             return worker.create_analise_credito(request)
         elif request.method == 'PUT':
             pass                    
