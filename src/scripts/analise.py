@@ -44,13 +44,14 @@ class AnaliseCredito(BuscaDados):
         
         try:
             id_analise_df: pd.DataFrame = self._run_query(query, has_return=True)
+            id_analise = str(id_analise_df.iloc[0,0])
+            id_user = str(id_analise_df.iloc[0,1])
+            response_json = '{{"id_analise":{},"id_user":{}}}'.format(id_analise,id_user )
             
         except Exception as ex:
             print(ex.args)
             return Response("Falha em processar o pedido.", 500)
-        id_analise = str(id_analise_df.iloc[0,0])
-        id_user = str(id_analise_df.iloc[0,1])
-        response_json = '{{"id_analise":{},"id_user":{}}}'.format(id_analise,id_user )
+        
         
 
         return Response(response_json, 200)    
