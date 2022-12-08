@@ -1,4 +1,5 @@
 import requests
+import json
 
 from flask import Request, Response
 from src.classes.busca_dados import BuscaDados
@@ -12,6 +13,11 @@ class ControladorEtapas(BuscaDados):
 
         return Response(self._run_query(query), 200, mimetype="application/json")
 
-    def alterar_etapas(self, UserID: int, ProjectID: int, EtapaID: int) -> Response:
+    def alterar_etapas(self, UserID: int, ProjectID: int, EtapaID: int) -> Response:        
+        
+        query: str = "CALL ProjetoHorizonte.AlterarEtapa({}, {}, {});".format(UserID, ProjectID, EtapaID)
 
-        pass
+        self._run_query(query)
+
+        return Response("Alterado", 200)
+        

@@ -114,7 +114,7 @@ class PHAuth(Resource):
 
         return worker.analise_assessor(token)
 
-    @app.route("/api/v1/Query/Etapas", methods=["GET"])
+    @app.route("/api/v1/Query/Etapas", methods=["GET", "POST"])
     def alterar_etapas(*self):
         if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')       
         token: str = request.headers.get('Access-Token')
@@ -123,7 +123,7 @@ class PHAuth(Resource):
         if request.method == "GET":
             return worker.busca_etapas()
         elif request.method == "POST":
-            pass
+            return worker.alterar_etapas(request.args.get('UserID'), request.args.get('ProjectID'), request.args.get('EtapaID'))
 
     @app.after_request
     def AfterRequest(response: Response):
