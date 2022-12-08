@@ -17,7 +17,7 @@ class ControladorEtapas(BuscaDados):
         
         query: str = "CALL ProjetoHorizonte.AlterarEtapa({}, {}, {});".format(UserID, ProjectID, EtapaID)
 
-        self._run_query(query)
+        self._run_query(query, has_return=False)
 
         return Response("Alterado", 200)
         
