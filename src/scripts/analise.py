@@ -1,5 +1,6 @@
 from json import dumps
 from flask import Response, Request
+import pandas as pd
 from src.classes.busca_dados import BuscaDados
 
 class AnaliseCredito(BuscaDados):
@@ -42,12 +43,18 @@ class AnaliseCredito(BuscaDados):
                         json.get('juros'))
         
         try:
-            self._run_query(query, has_return=False)
+            id_analise_df: pd.DataFrame = self._run_query(query, has_return=True)
+            id_analise = str(id_analise_df.iloc[0,0])
+            id_user = str(id_analise_df.iloc[0,1])
+            response_json = '{{"id_analise":{},"id_user":{}}}'.format(id_analise,id_user )
+            
         except Exception as ex:
             print(ex.args)
             return Response("Falha em processar o pedido.", 500)
+        
+        
 
-        return Response("Sucesso", 202)    
+        return Response(response_json, 200)    
 
     def atualizar_analise_credito(self, request: Request) -> Response:
 
