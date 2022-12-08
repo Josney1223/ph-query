@@ -120,7 +120,10 @@ class PHAuth(Resource):
         token: str = request.headers.get('Access-Token')
         worker: ControladorEtapas = ControladorEtapas()
 
-        return worker.busca_etapas()
+        if request.method == "GET":
+            return worker.busca_etapas()
+        elif request.method == "POST":
+            
 
     @app.after_request
     def AfterRequest(response: Response):

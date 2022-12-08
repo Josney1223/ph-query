@@ -11,3 +11,7 @@ class ControladorEtapas(BuscaDados):
         query: str = "SELECT * FROM ProjetoHorizonte.TipoEtapa;"
 
         return Response(self._run_query(query), 200, mimetype="application/json")
+
+    def alterar_etapas(self, UserID: int, ProjectID: int, EtapaID: int) -> Response:
+
+        pass
