@@ -13,7 +13,7 @@ from src.scripts.sistema_arquivos import SistemaArquivos
 from src.scripts.analise import AnaliseCredito
 from src.scripts.analise_cliente import AnaliseCliente
 from src.scripts.analise_credito import AnaliseAssessor
-from src.scripts.alterar_etapa import ControladorEtapas
+from src.scripts.controlador_fluxo import ControladorEtapas
 
 UPLOAD_FOLDER = os.getcwd()
 
@@ -124,6 +124,15 @@ class PHAuth(Resource):
             return worker.busca_etapas()
         elif request.method == "POST":
             return worker.alterar_etapas(request.args.get('UserID'), request.args.get('ProjectID'), request.args.get('EtapaID'))
+
+    @app.route("/api/v1/Query/FinalizarAnalise", methods=["POST"])
+    def finalizar_analise(*self):
+        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')       
+        token: str = request.headers.get('Access-Token')
+        worker: ControladorEtapas = ControladorEtapas()
+
+        if request.method == "POST":
+            return worker.finalizar_projeto(request)
 
     @app.after_request
     def AfterRequest(response: Response):
