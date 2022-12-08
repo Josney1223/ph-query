@@ -123,7 +123,7 @@ class PHAuth(Resource):
         if request.method == "GET":
             return worker.busca_etapas()
         elif request.method == "POST":
-            
+            pass
 
     @app.after_request
     def AfterRequest(response: Response):
