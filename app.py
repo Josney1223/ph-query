@@ -13,6 +13,7 @@ from src.scripts.sistema_arquivos import SistemaArquivos
 from src.scripts.analise import AnaliseCredito
 from src.scripts.analise_cliente import AnaliseCliente
 from src.scripts.analise_credito import AnaliseAssessor
+from src.scripts.alterar_etapa import ControladorEtapas
 
 UPLOAD_FOLDER = os.getcwd()
 
@@ -112,6 +113,14 @@ class PHAuth(Resource):
         worker: AnaliseAssessor = AnaliseAssessor()
 
         return worker.analise_assessor(token)
+
+    @app.route("/api/v1/Query/Etapas", methods=["GET"])
+    def alterar_etapas(*self):
+        if 'Access-Token' not in request.headers.keys(): return Response("Token não informado", 400, mimetype='text/plain')       
+        token: str = request.headers.get('Access-Token')
+        worker: ControladorEtapas = ControladorEtapas()
+
+        return worker.busca_etapas()
 
     @app.after_request
     def AfterRequest(response: Response):
